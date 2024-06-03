@@ -1,0 +1,331 @@
+﻿@page "/userprofilesummary"
+@attribute [StreamRendering]
+
+<PageTitle>User Profile Summary</PageTitle>
+
+@using EUC.Profile.Buddy.Web.Common
+@using EUC.Profile.Buddy.Web.Repositories
+@using EUC.Profile.Buddy.Web.Repositories.Entities
+@using EUC.Profile.Buddy.Web.Repositories.Model
+@using Microsoft.EntityFrameworkCore
+@inject ProfileDataRepository profileDataRepository
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+
+    <MudTooltip Placement="Placement.Right" Text="Table containing the user profile summary. You can search the table by User Name or Profile Type. Hover over the column header for a description.">
+        <MudText Typo="Typo.h4" Align="Align.Left" Class="px-4">
+            User Profiles
+        </MudText>
+    </MudTooltip>
+
+    <br />
+    <br />
+
+    <MudGrid Spacing="2" Justify="Justify.FlexStart">
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Total Profiles</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Total Size</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.FileCopy" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalProfileSize</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Temp Data</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.FileCopy" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalTempSize</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">CPM Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@cpmProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">FSLogix Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@fsLogixProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Local Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Warning" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@localProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Unknown Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@unknownProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+
+    <br/>
+    <br/>
+
+    <MudTable Items="@profileInformation" Hover="true" Filter="new Func<Repositories.Entities.UserProfileSummary, bool>(FilterCycleCheck)" Breakpoint="Breakpoint.Sm" >
+
+        <ToolBarContent>
+
+            <MudTextField @bind-Value="@searchTerm" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Large"></MudTextField>
+
+        </ToolBarContent>
+
+        <HeaderContent>
+
+            <MudTh>
+                <MudTooltip Text="User Name" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.UserProfileSummary, object>(x => x.UserName)">
+                        User Name
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="User Profile Directory" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.UserProfileSummary, object>(x => x.ProfileDirectory)">
+                        Profile Directory
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="Profile Size" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.UserProfileSummary, object>(x => x.ProfileSize)">
+                        Size
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="Temp Data Size" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.UserProfileSummary, object>(x => x.TempSize)">
+                        Temp Data
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="Profile Type" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.UserProfileSummary, object>(x => x.ProfileType)">
+                        Profile Type
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+        </HeaderContent>
+
+        <RowTemplate>
+
+            <MudTd DataLabel="UserName">
+                @context.UserName
+            </MudTd>
+
+            <MudTd DataLabel="ProfileDirectory">
+                @context.ProfileDirectory
+            </MudTd>
+
+            <MudTd DataLabel="ProfileSize">
+                @userProfile.FormatFileSize(context.ProfileSize)
+            </MudTd>
+
+            <MudTd DataLabel="TempSize">
+                @userProfile.FormatFileSize(context.TempSize)
+            </MudTd>
+
+            <MudTd DataLabel="ProfileType">
+                @context.ProfileType
+            </MudTd>
+
+        </RowTemplate>
+
+        <PagerContent>
+            <MudBreakpointProvider>
+                <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Sm" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Md" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Lg" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Xl" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Xxl" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+            </MudBreakpointProvider>
+        </PagerContent>
+
+    </MudTable>
+
+    <br/>
+
+    <MudText Typo="Typo.h6" Align="Align.Left" Class="px-4">
+            Additional Info
+    </MudText>
+
+    <br/>
+
+    <MudGrid Spacing="5" Justify="Justify.FlexStart">
+        <MudItem xs="12" md="6" lg="6">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Citrix Profile Management</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">Learn more about Citrix Profile Management and the various best practices for deployment.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="6">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Microsoft FSLogix</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">Learn more about Microsoft FSLogix and the various best practices for deployment.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+</MudPaper>
+
+@code {
+    private List<Repositories.Entities.UserProfileSummary> profileInformation = [];
+    public EUCWebUserProfile userProfile = new EUCWebUserProfile();
+
+    string searchTerm = "";
+    public int totalProfiles;
+    public string totalProfileSize = string.Empty;
+    public string totalTempSize = string.Empty;
+    public int localProfiles;
+    public int fsLogixProfiles;
+    public int cpmProfiles;
+    public int unknownProfiles;
+
+    protected override async Task OnInitializedAsync()
+    {
+        profileInformation = await profileDataRepository.UserProfileSummary
+            .AsNoTracking()
+            .ToListAsync();
+        
+        totalProfiles = userProfile.TotalProfiles(profileInformation);
+        totalProfileSize = userProfile.FormatFileSize(userProfile.TotalProfileSize(profileInformation));
+        totalTempSize = userProfile.FormatFileSize(userProfile.TotalTempSize(profileInformation));
+
+        localProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.Local).Count();
+        fsLogixProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.FSLogix).Count();
+        cpmProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.CitrixProfileManager).Count();
+        unknownProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.Unknown).Count();
+    }
+
+    private bool FilterCycleCheck(Repositories.Entities.UserProfileSummary item)
+    {
+        if ((item.UserName.Contains(searchTerm)) || item.ProfileType.ToString().Contains(searchTerm))
+        {
+            return true;
+        }
+        return false;
+    }
+}

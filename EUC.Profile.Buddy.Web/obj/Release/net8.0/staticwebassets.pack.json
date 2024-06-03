@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Dave\\Documents\\Github\\EUC.Profile.Buddy\\EUC.Profile.Buddy.Web\\obj\\Release\\net8.0\\scopedcss\\projectbundle\\EUC.Profile.Buddy.Web.bundle.scp.css",
+      "PackagePath": "staticwebassets\\EUC.Profile.Buddy.Web.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\Dave\\Documents\\Github\\EUC.Profile.Buddy\\EUC.Profile.Buddy.Web\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\Dave\\Documents\\Github\\EUC.Profile.Buddy\\EUC.Profile.Buddy.Web\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\Dave\\Documents\\Github\\EUC.Profile.Buddy\\EUC.Profile.Buddy.Web\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\Dave\\Documents\\Github\\EUC.Profile.Buddy\\EUC.Profile.Buddy.Web\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.EUC.Profile.Buddy.Web.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.build.EUC.Profile.Buddy.Web.props",
+      "PackagePath": "build\\EUC.Profile.Buddy.Web.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EUC.Profile.Buddy.Web.props",
+      "PackagePath": "buildMultiTargeting\\EUC.Profile.Buddy.Web.props"
+    },
+    {
+      "Id": "obj\\Release\\net8.0\\staticwebassets\\msbuild.buildTransitive.EUC.Profile.Buddy.Web.props",
+      "PackagePath": "buildTransitive\\EUC.Profile.Buddy.Web.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

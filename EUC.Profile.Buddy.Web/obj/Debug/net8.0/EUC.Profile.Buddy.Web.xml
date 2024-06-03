@@ -1,0 +1,638 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EUC.Profile.Buddy.Web</name>
+    </assembly>
+    <members>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController">
+            <summary>
+            Task Information Controller Class.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.#ctor(AutoMapper.IMapper,EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController"/> class.
+            </summary>
+            <param name="mapper">The automapper.</param>
+            <param name="profileDataRepository">The Datasource.</param>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.GetTaskInformation">
+             <summary>
+             Gets all the Task Information records.
+             </summary>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 GET /TaskInformation
+                 {
+                 }
+            
+             </remarks>
+             <response code="200">Returns the Task Information records.</response>
+             <response code="404">Returns if the no Task Records are found.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.GetTaskInformationByID(System.Guid)">
+             <summary>
+             Gets a single Task Information record by ID.
+             </summary>
+             <param name="id">The Task Information record ID.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 GET /TaskInformation/id/{id}
+                 {
+                 }
+            
+             </remarks>
+             <response code="200">Returns the Task Information record.</response>
+             <response code="404">Returns if the no Task Records are found.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.GetTaskInformationByUserName(System.String)">
+             <summary>
+             Gets all the Task Information records by User Name.
+             </summary>
+             <param name="username">The Task Information record User Name.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 GET /TaskInformation/username/{username}
+                 {
+                 }
+            
+             </remarks>
+             <response code="200">Returns the Task Information records.</response>
+             <response code="404">Returns if the no Task Records are found.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.AddTaskInformation(EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto)">
+             <summary>
+             Adds a Task Information record.
+             </summary>
+             <param name="taskInformationPostDto">The request body for the operation.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /TaskInformation
+                 {
+                     UserName: "Dave Brett"
+                     TaskName: "Task 1"
+                     TaskState: 0
+                 }
+            
+             </remarks>
+             <response code="200">Returns the Task Information record.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.UpdateTaskInformation(System.Guid,EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto)">
+             <summary>
+             Updates a Task Information record.
+             </summary>
+             <param name="id">The Task Information ID.</param>
+             <param name="taskInformationPostDto">The request body for the operation.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /TaskInformation/id/{id}
+                 {
+                     UserName: "Dave Brett"
+                     TaskName: "Task 1"
+                     TaskState: 1
+                 }
+            
+             </remarks>
+             <response code="200">Returns the updated Task Information record.</response>
+             <response code="404">Returns if the Task Record does not exist.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.TaskInformationController.DeleteTaskInformation(System.Guid)">
+             <summary>
+             Deletes a Task Information record.
+             </summary>
+             <param name="id">The Task Information ID.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 DELETE /TaskInformation{id}
+                 {
+                 }
+            
+             </remarks>
+             <response code="200">Returns the deleted Task Information ID.</response>
+             <response code="404">Returns if the Task Record does not exist.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Controllers.UserProfileSummaryController">
+            <summary>
+            User Profile Summary Controller Class.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.UserProfileSummaryController.#ctor(AutoMapper.IMapper,EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:EUC.Profile.Buddy.Web.Api.Controllers.UserProfileSummaryController"/> class.
+            </summary>
+            <param name="mapper">The automapper.</param>
+            <param name="profileDataRepository">The Datasource.</param>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.UserProfileSummaryController.AddUserProfile(EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto)">
+             <summary>
+             Adds a User Profile record.
+             </summary>
+             <param name="userProfileSummaryPostDto"> the request for the operation.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /UserProfileSummary
+                 {
+                     UserName: "Dave Brett"
+                     ProfileSize: 1000324
+                     TempSize: 321773
+                     ProfileType: 0
+                 }
+            
+             </remarks>
+             <response code="200">Returns the newly created item.</response>
+             <response code="400">If the item already exists.</response>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Controllers.UserProfileSummaryController.UpdateUserProfile(System.Guid,EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto)">
+             <summary>
+             Updates a User Profile record.
+             </summary>
+             <param name="id">The User Profile ID.</param>
+             <param name="userProfileSummaryPostDto">The request body for the operation.</param>
+             <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> representing the result of the asynchronous operation.</returns>
+             <remarks>
+             Sample request:
+            
+                 POST /UserProfileSummary/id/{id}
+                 {
+                     UserName: "DaveBrettUpdated"
+                 }
+            
+             </remarks>
+             <response code="200">Returns the updated User Profile record.</response>
+             <response code="404">Returns if the User Profile does not exist.</response>
+             <response code="400">Returns the HTTP exception.</response>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto">
+            <summary>
+            Task Information Post DTO Class.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto.TaskName">
+            <summary>
+            Gets or sets the Task Name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationPostDto.TaskState">
+            <summary>
+            Gets or sets the task state.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto">
+            <summary>
+            Task Information Request DTO Class.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.Id">
+            <summary>
+            Gets or sets the Id.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.TaskName">
+            <summary>
+            Gets or sets the Task Name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.TaskExecuted">
+            <summary>
+            Gets or sets the task executed date and time.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.TaskState">
+            <summary>
+            Gets or sets the task state.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.TaskInformationRequestDto.TaskRunTime">
+            <summary>
+            Gets or sets the task run time.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto">
+            <summary>
+            User Profile Summary DTO Class.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto.ProfileSize">
+            <summary>
+            Gets or sets the size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto.TempSize">
+            <summary>
+            Gets or sets the temp data size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryPostDto.ProfileType">
+            <summary>
+            Gets or sets the profile type.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto">
+            <summary>
+            User Profile Summary Request DTO Class.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.Id">
+            <summary>
+            Gets or sets the Id.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.ProfileDirectory">
+            <summary>
+            Gets or sets the profile directory.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.ProfileSize">
+            <summary>
+            Gets or sets the size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.TempSize">
+            <summary>
+            Gets or sets the temp data size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.ProfileType">
+            <summary>
+            Gets or sets the profile type.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.LastUpdated">
+            <summary>
+            Gets or sets the last updated time of this entity.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.DateCreated">
+            <summary>
+            Gets or sets the date created time of this entity.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Api.Models.DTO.UserProfileSummaryRequestDto.ProfileAge">
+            <summary>
+            Gets or sets the profile age of this entity.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Api.Models.ValidateModelStateAttribute">
+            <summary>
+            Model state validation attribute.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Api.Models.ValidateModelStateAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked.
+            </summary>
+            <param name="context">The executing context.</param>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Common.EUCWebUserProfile">
+            <summary>
+            Class to manage common code for EUC Ewb Tier.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.EUCWebUserProfile.TotalProfiles(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <inheritdoc/>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.EUCWebUserProfile.TotalProfileSize(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <inheritdoc/>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.EUCWebUserProfile.TotalTempSize(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <inheritdoc/>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.EUCWebUserProfile.FormatFileSize(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Common.IEUCWebUserProfile">
+            <summary>
+            Interface to manage common code for EUC Ewb Tier.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.IEUCWebUserProfile.FormatFileSize(System.Int64)">
+            <summary>
+            Formats the size passed in.
+            </summary>
+            <param name="bytes">The total size to format.</param>
+            <returns>A <see cref="T:System.String"/>.</returns>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.IEUCWebUserProfile.TotalProfiles(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <summary>
+            Gets the total number of profiles.
+            </summary>
+            <param name="profiles">The profiles array.</param>
+            <returns>A <see cref="T:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary"/>.</returns>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.IEUCWebUserProfile.TotalProfileSize(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <summary>
+            Gets the total profile size.
+            </summary>
+            <param name="profiles">The profiles array.</param>
+            <returns>A <see cref="T:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary"/>.</returns>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Common.IEUCWebUserProfile.TotalTempSize(System.Collections.Generic.List{EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary})">
+            <summary>
+            Gets the total temp size.
+            </summary>
+            <param name="profiles">The profiles array.</param>
+            <returns>A <see cref="T:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary"/>.</returns>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Configurations.MapperConfig">
+            <summary>
+            Mapper Config Class.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Configurations.MapperConfig.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:EUC.Profile.Buddy.Web.Configurations.MapperConfig"/> class.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial1">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial1.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial1.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial1.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial2">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial2.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial2.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial2.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial3">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial3.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial3.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial3.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial4">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial4.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial4.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial4.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial5">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial5.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial5.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial5.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Migrations.initial6">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial6.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial6.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Migrations.initial6.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation">
+            <summary>
+            Class to build the Task Information.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.Id">
+            <summary>
+            Gets or sets the Id.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.TaskName">
+            <summary>
+            Gets or sets the Task Name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.TaskExecuted">
+            <summary>
+            Gets or sets the task executed date and time.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.TaskState">
+            <summary>
+            Gets or sets the task state.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.TaskInformation.TaskRunTime">
+            <summary>
+            Gets or sets the task run time.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary">
+            <summary>
+            Class to build the User Profile Summary.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.Id">
+            <summary>
+            Gets or sets the Id.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.UserName">
+            <summary>
+            Gets or sets the users name.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.ProfileDirectory">
+            <summary>
+            Gets or sets the profile directory.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.ProfileSize">
+            <summary>
+            Gets or sets the size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.TempSize">
+            <summary>
+            Gets or sets the temp data size of the profile.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.ProfileType">
+            <summary>
+            Gets or sets the profile type.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.LastUpdated">
+            <summary>
+            Gets or sets the last updated time of this entity.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.DateCreated">
+            <summary>
+            Gets or sets the date created time of this entity.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.Entities.UserProfileSummary.ProfileAge">
+            <summary>
+            Gets or sets the profile age of this entity.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.Model.EUCProfileType">
+            <summary>
+            Enum to hold the profile type.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCProfileType.Unknown">
+            <summary>
+            Unknown profile type.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCProfileType.CitrixProfileManager">
+            <summary>
+            Citrix Profile Manager.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCProfileType.FSLogix">
+            <summary>
+            Microsoft FSLogix.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCProfileType.Local">
+            <summary>
+            Local.
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.Model.EUCTaskState">
+            <summary>
+            Enum to hold the task status.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCTaskState.Unknown">
+            <summary>
+            Unknown Status.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCTaskState.Completed">
+            <summary>
+            Completed.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCTaskState.Errored">
+            <summary>
+            Errored.
+            </summary>
+        </member>
+        <member name="F:EUC.Profile.Buddy.Web.Repositories.Model.EUCTaskState.Running">
+            <summary>
+            Running
+            </summary>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepositoryBuilder">
+            <summary>
+            EUC Profile Buddy Data Repository Builder Class.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepositoryBuilder.CreateDbContext(System.String[])">
+            <summary>
+            Builds the ProfileDataRepository.
+            </summary>
+            <param name="args">The Builder Arguments.</param>
+            <returns>EUCProfileBuddyDataRepository.</returns>
+        </member>
+        <member name="T:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository">
+            <summary>
+            EUC Profile Buddy Data Repository Class.
+            </summary>
+        </member>
+        <member name="M:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository})">
+            <summary>
+            EUC Profile Buddy Data Repository Class.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository.UserProfileSummary">
+            <summary>
+            Gets or sets the User Profile Summaries.
+            </summary>
+        </member>
+        <member name="P:EUC.Profile.Buddy.Web.Repositories.ProfileDataRepository.TaskInformation">
+            <summary>
+            Gets or sets the Task Information.
+            </summary>
+        </member>
+    </members>
+</doc>

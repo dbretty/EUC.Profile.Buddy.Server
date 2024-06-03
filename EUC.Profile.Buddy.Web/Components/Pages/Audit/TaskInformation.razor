@@ -1,0 +1,248 @@
+﻿@page "/taskinformation"
+@attribute [StreamRendering]
+
+<PageTitle>Task Information Audit</PageTitle>
+
+@using EUC.Profile.Buddy.Web.Common
+@using EUC.Profile.Buddy.Web.Repositories
+@using EUC.Profile.Buddy.Web.Repositories.Entities
+@using EUC.Profile.Buddy.Web.Repositories.Model
+@using Microsoft.EntityFrameworkCore
+@inject ProfileDataRepository profileDataRepository
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+
+    <MudTooltip Placement="Placement.Right" Text="Table containing all the tasks that have been undertaken. You can search the table by User Name, Task Description or Task State. Hover over the column header for a description." >
+        <MudText Typo="Typo.h4" Align="Align.Left" Class="px-4">
+            Tasks
+        </MudText>
+    </MudTooltip>
+
+    <br/>
+    <br/>
+
+    <MudGrid Spacing="2" Justify="Justify.FlexStart">
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Completed Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Recommend" Color="Color.Success" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@completedTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Running Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.RunCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@runningTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Errored Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Error" Color="Color.Error" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@erroredTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Unknown State</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.QuestionMark" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@unknownTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+
+    <br/>
+    <br/>
+
+    <MudTable Items="@taskInformation" Hover="true" Filter="new Func<Repositories.Entities.TaskInformation, bool>(FilterCycleCheck)" Breakpoint="Breakpoint.Sm">
+
+        <ToolBarContent>
+
+            <MudTextField @bind-Value="@searchTerm" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Large"></MudTextField>
+
+        </ToolBarContent>
+
+        <HeaderContent>
+
+            <MudTh>
+                <MudTooltip Text="The user who started the task" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.TaskInformation, object>(x => x.UserName)">
+                        User Name
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="The task decription send by EUC Profile Buddy" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.TaskInformation, object>(x => x.TaskName)">
+                        Task Description
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="The time the task was started">
+                    <MudTableSortLabel InitialDirection="SortDirection.Descending" SortBy="new Func<Repositories.Entities.TaskInformation, object>(x => x.TaskExecuted)">
+                        Started
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="The time the task has been running for" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.TaskInformation, object>(x => x.TaskRunTime)">
+                        Run Time
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+            <MudTh>
+                <MudTooltip Text="The task status" Placement="Placement.Right">
+                    <MudTableSortLabel InitialDirection="SortDirection.None" SortBy="new Func<Repositories.Entities.TaskInformation, object>(x => x.TaskState)">
+                        State
+                    </MudTableSortLabel>
+                </MudTooltip>
+            </MudTh>
+
+        </HeaderContent>
+
+        <RowTemplate>
+
+            <MudTd DataLabel="UserName">
+                @context.UserName
+            </MudTd>
+
+            <MudTd DataLabel="TaskName">
+                @context.TaskName
+            </MudTd>
+
+            <MudTd DataLabel="TaskExecuted">
+                @context.TaskExecuted
+            </MudTd>
+
+            <MudTd DataLabel="TaskRunTime">
+                @context.TaskRunTime.Hours (h) @context.TaskRunTime.Minutes (m) @context.TaskRunTime.Seconds (s)
+            </MudTd>
+
+            <MudTd DataLabel="TaskState">
+                @if (context.TaskState == Repositories.Model.EUCTaskState.Completed)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.Recommend" Title="Task Completed" Size="Size.Large" Color="Color.Success" />
+                }
+
+                @if (context.TaskState == Repositories.Model.EUCTaskState.Unknown)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.QuestionMark" Title="Unknown State" Size="Size.Large" Color="Color.Dark" />
+                }
+
+                @if (context.TaskState == Repositories.Model.EUCTaskState.Running)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.RunCircle" Title="Task Running" Size="Size.Large" Color="Color.Info" />
+                }
+
+                @if (context.TaskState == Repositories.Model.EUCTaskState.Errored)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.Error" Title="Task Error" Size="Size.Large" Color="Color.Error" />
+                }
+            </MudTd>
+
+        </RowTemplate>
+
+        <PagerContent>
+            <MudBreakpointProvider >
+                <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Sm" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Md" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" HideRowsPerPage="true" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Lg" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Xl" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+                <MudHidden Breakpoint="Breakpoint.Xxl" Invert="true">
+                    <MudTablePager PageSizeOptions="new int[]{10,20,30,40,50}" />
+                </MudHidden>
+            </MudBreakpointProvider>
+        </PagerContent>
+
+    </MudTable>
+
+</MudPaper>
+
+@code {
+
+    string searchTerm = "";
+
+    public int completedTasks;
+    public int runningTasks;
+    public int erroredTasks;
+    public int unknownTasks;
+
+    private List<Repositories.Entities.TaskInformation> taskInformation = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        taskInformation = await profileDataRepository.TaskInformation
+            .OrderByDescending(x => x.TaskExecuted)
+            .AsNoTracking()
+            .ToListAsync();
+
+        completedTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Completed).Count();
+        runningTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Running).Count();
+        erroredTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Errored).Count();
+        unknownTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Unknown).Count();
+    }
+
+    private bool FilterCycleCheck(Repositories.Entities.TaskInformation item)
+    {
+        if ((item.TaskName.Contains(searchTerm)) || item.UserName.Contains(searchTerm) || item.TaskState.ToString().Contains(searchTerm))
+        {
+            return true;
+        }
+        return false;
+    }
+}

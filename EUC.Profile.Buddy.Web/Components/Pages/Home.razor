@@ -1,0 +1,353 @@
+﻿@page "/"
+@attribute [StreamRendering]
+
+<PageTitle>EUC Profile Buddy</PageTitle>
+
+@using EUC.Profile.Buddy.Web.Common
+@using EUC.Profile.Buddy.Web.Repositories
+@using EUC.Profile.Buddy.Web.Repositories.Entities
+@using EUC.Profile.Buddy.Web.Repositories.Model
+@using Microsoft.EntityFrameworkCore
+@inject ProfileDataRepository profileDataRepository
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+
+    <MudText Typo="Typo.h6" Align="Align.Left" Class="px-4">
+        Overview
+    </MudText>
+
+    <MudText Typo="Typo.body1" Align="Align.Left" Class="px-4">
+        Below you will find a high level overview for all the agents that have reported into EUC Profile Buddy. <br/> If you have any suggestions or queries please feel free to reach out using the links at the bottom of this page.
+    </MudText>
+
+</MudPaper>
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+
+    <MudTooltip Placement="Placement.Right" Text="Provides an overview of your EUC Profile Buddy Profiles." >
+        <MudText Typo="Typo.h4" Align="Align.Left" Class="px-4">
+            Profiles
+        </MudText>
+    </MudTooltip>
+
+    <br/>
+    <br/>
+
+    <MudGrid Spacing="2" Justify="Justify.FlexStart">
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Total Profiles</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Total Size</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.FileCopy" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalProfileSize</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Temp Data</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.FileCopy" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@totalTempSize</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">CPM Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@cpmProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">FSLogix Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@fsLogixProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Local Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Warning" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@localProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Unknown Total</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@unknownProfiles</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudPaper Class="pa-2">
+                <MudChart ChartOptions="@(new() { ChartPalette = new[] { "#33AFFF", "#18C97B", "#C9B618", "#C91836" } })" ChartType="ChartType.Donut" LegendPosition="Position.Bottom" Width="250px" Height="250px"
+                    InputData="@profileBreakdown" InputLabels="@profileLabels">
+                </MudChart>
+            </MudPaper>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="4">
+            <MudPaper Class="pa-2">
+                <MudChart ChartOptions="@(new() { ChartPalette = new[] { "#33AFFF", "#C91836" } })" ChartType="ChartType.Donut" LegendPosition="Position.Bottom" Width="250px" Height="250px"
+                          InputData="@sizeBreakdown" InputLabels="@sizeLabels">
+                </MudChart>
+            </MudPaper>
+        </MudItem>
+        
+
+    </MudGrid>
+
+</MudPaper>
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+
+    <MudTooltip Placement="Placement.Right" Text="Provides an overview of your EUC Profile Buddy Tasks.">
+        <MudText Typo="Typo.h4" Align="Align.Left" Class="px-4">
+            Tasks
+        </MudText>
+    </MudTooltip>
+
+    <br />
+    <br />
+
+    <MudGrid Spacing="2" Justify="Justify.FlexStart">
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Completed Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Recommend" Color="Color.Success" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@completedTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Running Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.RunCircle" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@runningTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Errored Tasks</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Error" Color="Color.Error" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@erroredTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="3">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h5">Unknown State</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.QuestionMark" Color="Color.Dark" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.h6">@unknownTasks</MudText>
+                </MudCardContent>
+            </MudCard>
+        </MudItem>
+
+    </MudGrid>
+
+</MudPaper>
+
+<MudPaper Class="pa-2 ma-2" Elevation="25">
+    <MudGrid Spacing="5" Justify="Justify.FlexStart">
+        <MudItem xs="12" md="6" lg="6">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Project Site</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">EUC Profile Buddy is written for the community, for free, and always will be. Please click below for find out more information about the project.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Href="https://bretty.me.uk/projects/EUC-Profile-Buddy/" Target="_blank" Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+
+        <MudItem xs="12" md="6" lg="6">
+            <MudCard Outlined="true">
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">Source Code</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        <MudIconButton Icon="@Icons.Material.Filled.Info" Color="Color.Info" />
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.body2">All the code for this is available on GitHub and can be edited or contributed to, to find out more click the link below.</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Href="https://github.com/dbretty/EUC.Profile.Buddy" Target="_blank" Variant="Variant.Text" Color="Color.Primary">Learn More</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+
+</MudPaper>
+@code {
+
+    private List<TaskInformation> taskInformation = [];
+    private List<UserProfileSummary> profileInformation = [];
+    public EUCWebUserProfile userProfile = new EUCWebUserProfile();
+
+    public int completedTasks;
+    public int runningTasks;
+    public int erroredTasks;
+    public int unknownTasks;
+    public int totalProfiles;
+    public string totalProfileSize = string.Empty;
+    public string totalTempSize = string.Empty;
+    public int localProfiles;
+    public int fsLogixProfiles;
+    public int cpmProfiles;
+    public int unknownProfiles;
+    public double[]? profileBreakdown;
+    public string[]? profileLabels;
+    public double[]? sizeBreakdown;
+    public string[]? sizeLabels;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        taskInformation = await profileDataRepository.TaskInformation
+            .OrderByDescending(x => x.TaskExecuted)
+            .AsNoTracking()
+            .ToListAsync();
+
+        completedTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Completed).Count();
+        runningTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Running).Count();
+        erroredTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Errored).Count();
+        unknownTasks = taskInformation.Where(x => x.TaskState == EUCTaskState.Unknown).Count();
+
+        profileInformation = await profileDataRepository.UserProfileSummary
+            .AsNoTracking()
+            .ToListAsync();
+
+        totalProfiles = userProfile.TotalProfiles(profileInformation);
+        totalProfileSize = userProfile.FormatFileSize(userProfile.TotalProfileSize(profileInformation));
+        totalTempSize = userProfile.FormatFileSize(userProfile.TotalTempSize(profileInformation));
+
+        localProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.Local).Count();
+        fsLogixProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.FSLogix).Count();
+        cpmProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.CitrixProfileManager).Count();
+        unknownProfiles = profileInformation.Where(x => x.ProfileType == EUCProfileType.Unknown).Count();
+
+        double[] profilebd = { cpmProfiles, fsLogixProfiles, localProfiles, unknownProfiles };
+        string[] profilelbl = { "CPM", "FSLogix", "Local", "Unknown" };
+        profileBreakdown = profilebd;
+        profileLabels = profilelbl;
+
+        var sizeLeft = userProfile.TotalProfileSize(profileInformation) - userProfile.TotalTempSize(profileInformation);
+        double[] size = { sizeLeft, userProfile.TotalTempSize(profileInformation) };
+        string[] sizeLbl = { "Profile Data", "Temp Data" };
+        sizeBreakdown = size;
+        sizeLabels = sizeLbl;
+    }
+}
