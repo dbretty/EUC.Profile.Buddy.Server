@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\EUC.Profile.Buddy.Web.props" />
-</Project>
