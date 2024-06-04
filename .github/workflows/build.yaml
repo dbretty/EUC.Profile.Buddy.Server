@@ -4,13 +4,13 @@ on:
   push:
     branches:
     paths:
-      - 'EUC.Profile.Buddy.Common/**' 
-      - 'EUC.Profile.Buddy.Common.Test/**' 
+      - 'EUC.Profile.Buddy.Web/**' 
+      - 'EUC.Profile.Buddy.Web.Test/**' 
   pull_request:
     branches: ["main"]
     paths:
-      - 'EUC.Profile.Buddy.Common/**'
-      - 'EUC.Profile.Buddy.Common.Test/**' 
+      - 'EUC.Profile.Buddy.Web/**'
+      - 'EUC.Profile.Buddy.Web.Test/**' 
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
       - name : Coverlet Testing
         uses: b3b00/coverlet-action@1.2.5
         with:
-          testProject: 'EUC.Profile.Buddy.Common.Test/EUC.Profile.Buddy.Common.Tests.csproj'
+          testProject: 'EUC.Profile.Buddy.Web.Test/EUC.Profile.Buddy.Web.Tests.csproj'
           output: 'lcov.info'
           outputFormat: 'lcov'
           excludes: '[program]*,[test]test.*'
