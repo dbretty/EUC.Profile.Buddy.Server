@@ -4,7 +4,6 @@
 
 namespace EUC.Profile.Buddy.Web.Api.Models.DTO
 {
-    using System.ComponentModel.DataAnnotations;
     using EUC.Profile.Buddy.Web.Repositories.Model;
 
     /// <summary>

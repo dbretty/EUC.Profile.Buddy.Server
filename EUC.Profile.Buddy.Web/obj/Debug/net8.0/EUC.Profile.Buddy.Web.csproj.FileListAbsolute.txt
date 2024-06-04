@@ -577,3 +577,4 @@ C:\Users\Dave\Documents\Github\EUC.Profile.Buddy.Server\EUC.Profile.Buddy.Web\ob
 C:\Users\Dave\Documents\Github\EUC.Profile.Buddy.Server\EUC.Profile.Buddy.Web\obj\Debug\net8.0\EUC.Profile.Buddy.Web.pdb
 C:\Users\Dave\Documents\Github\EUC.Profile.Buddy.Server\EUC.Profile.Buddy.Web\obj\Debug\net8.0\EUC.Profile.Buddy.Web.genruntimeconfig.cache
 C:\Users\Dave\Documents\Github\EUC.Profile.Buddy.Server\EUC.Profile.Buddy.Web\obj\Debug\net8.0\ref\EUC.Profile.Buddy.Web.dll
+C:\Users\Dave\Documents\Github\EUC.Profile.Buddy.Server\EUC.Profile.Buddy.Web\obj\Debug\net8.0\EUC.Profile.Buddy.Web.sourcelink.json

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EUC.Profile.Buddy.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4564bda9de20ae0944ab11f89cbe6566417a6497")]
 [assembly: System.Reflection.AssemblyProductAttribute("EUC.Profile.Buddy.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EUC.Profile.Buddy.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

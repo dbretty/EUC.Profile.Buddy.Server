@@ -55,8 +55,8 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">If the item already exists.</response>
         [HttpPost]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(UserProfileSummaryRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
         public async Task<IActionResult> AddUserProfile([FromBody] UserProfileSummaryPostDto userProfileSummaryPostDto)
 		{
             try
@@ -96,9 +96,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpPost("id/{id}")]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(UserProfileSummaryRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
         public async Task<IActionResult> UpdateUserProfile(Guid id, [FromBody] UserProfileSummaryPostDto userProfileSummaryPostDto)
         {
             var existingUser = await this._profileDataRepository.UserProfileSummary

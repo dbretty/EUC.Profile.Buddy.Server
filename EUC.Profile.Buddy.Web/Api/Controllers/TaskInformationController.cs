@@ -55,9 +55,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpGet]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
         public async Task<ActionResult<List<TaskInformationRequestDto>>> GetTaskInformation()
         {
             var taskInformation = await this._profileDataRepository.TaskInformation
@@ -101,9 +101,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpGet("id/{id:guid}")]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
         public async Task<ActionResult<List<TaskInformationRequestDto>>> GetTaskInformationByID(Guid id)
         {
             var existingTaskID = await this._profileDataRepository.TaskInformation
@@ -148,9 +148,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpGet("username/{username}")]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
         public async Task<ActionResult<List<TaskInformationRequestDto>>> GetTaskInformationByUserName(string username)
         {
             var existingTask = await this._profileDataRepository.TaskInformation
@@ -198,7 +198,7 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         [HttpPost]
         [ValidateModelState]
         [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
         public async Task<IActionResult> AddTaskInformation([FromBody] TaskInformationPostDto taskInformationPostDto)
         {
             try
@@ -238,9 +238,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpPost("id/{id}")]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
         public async Task<IActionResult> UpdateTaskInformation(Guid id, [FromBody] TaskInformationPostDto taskInformationPostDto)
         {
             var existingTask = await this._profileDataRepository.TaskInformation
@@ -312,9 +312,9 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         /// <response code="400">Returns the HTTP exception.</response>
         [HttpDelete("id/{id}")]
         [ValidateModelState]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(TaskInformationRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
         public async Task<IActionResult> DeleteTaskInformation(Guid id)
         {
             var existingTask = await this._profileDataRepository.TaskInformation
