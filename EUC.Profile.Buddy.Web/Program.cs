@@ -52,6 +52,19 @@ builder.Host.UseWindowsService();
 
 var app = builder.Build();
 
+// This will auto create and apply migrations on runtime.
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetService<ProfileDataRepository>();
+var pendingMigrations = dbContext.Database.GetPendingMigrations();
+if (pendingMigrations.Any())
+{
+    var logger = app.Services.GetService<ILogger<Program>>();
+    logger.LogWarning("Performing migrations: {0}", string.Concat(pendingMigrations, ","));
+    dbContext.Database.Migrate();
+    logger.LogInformation("Migrations complete!");
+}
+
+
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Error", createScopeForErrors: true);
