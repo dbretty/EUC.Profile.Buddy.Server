@@ -1,3 +1,4 @@
+![Build Workflow](https://github.com/dbretty/EUC.Profile.Buddy.Server/actions/workflows/build.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # EUC Profile Buddy Server
