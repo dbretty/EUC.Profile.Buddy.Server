@@ -35,6 +35,98 @@ namespace EUC.Profile.Buddy.Web.Api.Controllers
         }
 
         /// <summary>
+        /// Gets all the User Profile records.
+        /// </summary>
+        /// <returns>A <see cref="Task{UserProfileSummaryRequestDto}"/> representing the result of the asynchronous operation.</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /UserProfileSummary
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the User Profile Summary records.</response>
+        /// <response code="404">Returns if the no User Profile Summary Records are found.</response>
+        /// <response code="400">Returns the HTTP exception.</response>
+        [HttpGet]
+        [ValidateModelState]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(UserProfileSummaryRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
+        public async Task<ActionResult<List<UserProfileSummaryRequestDto>>> GetUserProfiles()
+        {
+            var userInformation = await this._profileDataRepository.UserProfileSummary
+                .OrderByDescending(x => x.DateCreated)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (userInformation.Count == 0)
+            {
+                return this.NotFound("No user profiles available");
+            }
+            else
+            {
+                try
+                {
+                    var returnData = this._mapper.Map<List<UserProfileSummaryRequestDto>>(userInformation);
+                    return this.Ok(returnData);
+                }
+                catch (HttpRequestException ex)
+                {
+                    return this.BadRequest($"HTTP exception thrown: {ex.Message}");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets a single User Profile Summary record by ID.
+        /// </summary>
+        /// <param name="id">The User Profile Summary record ID.</param>
+        /// <returns>A <see cref="Task{UserProfileSummaryRequestDto}"/> representing the result of the asynchronous operation.</returns>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /UserProfileSummary/id/{id}
+        ///     {
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the User Profile Summary record.</response>
+        /// <response code="404">Returns if the no User Profile Summary records are found.</response>
+        /// <response code="400">Returns the HTTP exception.</response>
+        [HttpGet("id/{id:guid}")]
+        [ValidateModelState]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.OK, type: typeof(UserProfileSummaryRequestDto))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.BadRequest, type: typeof(string))]
+        [ProducesResponseType(statusCode: (int)HttpStatusCode.NotFound, type: typeof(string))]
+        public async Task<ActionResult<List<UserProfileSummaryRequestDto>>> GetUserProfileSummaryByID(Guid id)
+        {
+            var existingUserProfileID = await this._profileDataRepository.UserProfileSummary
+                .OrderByDescending(x => x.DateCreated)
+                .Where(x => x.Id == id)
+                .AsNoTracking()
+                .ToListAsync();
+
+            if (existingUserProfileID.Count == 0)
+            {
+                return this.NotFound($"User Profile Summary ID {id} not found");
+            }
+            else
+            {
+                try
+                {
+                    var returnData = this._mapper.Map<List<UserProfileSummaryRequestDto>>(existingUserProfileID);
+                    return this.Ok(returnData);
+                }
+                catch (HttpRequestException ex)
+                {
+                    return this.BadRequest($"HTTP exception thrown: {ex.Message}");
+                }
+            }
+        }
+
+        /// <summary>
         /// Adds a User Profile record.
         /// </summary>
         /// <param name="userProfileSummaryPostDto"> the request for the operation.</param>
