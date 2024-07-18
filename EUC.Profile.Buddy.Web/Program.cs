@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 using NSwag;
 using Microsoft.Extensions.Hosting.WindowsServices;
+using EUC.Profile.Buddy.Web.Repositories.Entities;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Identity;
+using EUC.Profile.Buddy.Web.Models;
 
 //var builder = WebApplication.CreateBuilder(args);
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
@@ -22,11 +26,18 @@ builder.Services.AddDbContext<ProfileDataRepository>(options =>
 	options.UseSqlite("Data Source=Profile.Data.Repository.db");
 });
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+    options.SignIn.RequireConfirmedAccount = false
+)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ProfileDataRepository>();
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMudServices();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddEndpointsApiExplorer();
+
 
 builder.Services.AddOpenApiDocument(options =>
 {
@@ -79,6 +90,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.UseAntiforgery();
 app.MapControllers();
 app.UseOpenApi();
@@ -88,6 +104,20 @@ app.UseReDoc(options =>
 {
     options.Path = "/redoc";
 });
+
+using (var localScope = app.Services.CreateScope())
+{
+    var profileDataRepository = scope.ServiceProvider;
+    try
+    {
+        UserRoleInitializer.InitializeAsync(profileDataRepository).Wait();
+    }
+    catch (Exception ex)
+    {
+        var logger = profileDataRepository.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occured while attempting to seed the database");
+    }
+}
 
 app.MapRazorComponents<App>()
 	.AddInteractiveServerRenderMode();
