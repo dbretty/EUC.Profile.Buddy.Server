@@ -1,9 +1,13 @@
 ﻿@inherits LayoutComponentBase
 @inject ISnackbar Snackbar
+@implements IDisposable
+
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider @rendermode="InteractiveServer" />
 <MudDialogProvider @rendermode="InteractiveServer" />
 <MudSnackbarProvider @rendermode="InteractiveServer" />
+<MudPopoverProvider  @rendermode="InteractiveServer" />
 
 <MudLayout>
     <MudAppBar Elevation="25" Color="Color.Info">
@@ -81,6 +85,28 @@
 
             <MudDivider Class="my-2" />
 
+            <AuthorizeView>
+                <Authorized>
+                    <MudNavLink Href="Account/Manage">
+                        Manage Account
+                    </MudNavLink>
+                    <MudNavLink Href="Account/Logout">
+                        <form action="Account/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                            <button type="submit">
+                                Logout
+                            </button>
+                        </form>
+                    </MudNavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <MudNavLink Href="Account/Login">
+                        Login
+                    </MudNavLink>
+                </NotAuthorized>
+            </AuthorizeView>
+
         </MudNavMenu>
 
     </MudDrawer>
@@ -97,11 +123,6 @@
     
 </MudLayout>
 
-<MudThemeProvider />
-<MudPopoverProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
-
 <style>
     .menu-item :hover {
         color: #000 !important;
@@ -115,5 +136,24 @@
     void ToggleDrawer()
     {
         open = !open;
+    }
+
+    private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(NavigationManager.Uri);
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        currentUrl = NavigationManager.ToBaseRelativePath(e.Location);
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }

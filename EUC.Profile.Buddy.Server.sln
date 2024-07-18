@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUC.Profile.Buddy.Web", "EUC.Profile.Buddy.Web\EUC.Profile.Buddy.Web.csproj", "{26ADA3AF-3354-4D49-9151-DC9464834757}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EUC.Profile.Buddy.Web.Client", "EUC.Profile.Buddy.Web.Client\EUC.Profile.Buddy.Web.Client.csproj", "{DCBA25AF-AC6C-479F-AAD3-42A19EB0D058}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{26ADA3AF-3354-4D49-9151-DC9464834757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26ADA3AF-3354-4D49-9151-DC9464834757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26ADA3AF-3354-4D49-9151-DC9464834757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCBA25AF-AC6C-479F-AAD3-42A19EB0D058}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCBA25AF-AC6C-479F-AAD3-42A19EB0D058}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCBA25AF-AC6C-479F-AAD3-42A19EB0D058}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCBA25AF-AC6C-479F-AAD3-42A19EB0D058}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
