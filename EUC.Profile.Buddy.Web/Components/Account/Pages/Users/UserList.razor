@@ -1,0 +1,92 @@
+﻿@page "/Account/UserList"
+
+@using System.ComponentModel.DataAnnotations
+@using System.Text
+@using System.Text.Encodings.Web
+@using EUC.Profile.Buddy.Web.Repositories
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.WebUtilities
+@using EUC.Profile.Buddy.Web.Repositories.Entities
+@using EUC.Profile.Buddy.Web.Components.Account
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IUserStore<ApplicationUser> UserStore
+@inject RoleManager<IdentityRole> RoleManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IEmailSender<ApplicationUser> EmailSender
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@inject ProfileDataRepository profileDataRepository
+
+<PageTitle>EUC Profile Buddy - User List</PageTitle>
+
+<br />
+<h4>User List</h4>
+<hr />
+
+<table class="table table-sm table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Update</th>
+    </tr>
+    @foreach (ApplicationUser user in userInformation)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.UserName</td>
+            <td>@user.Email</td>
+            <td>
+                @if (UserManager.IsInRoleAsync(user, "Reader").Result)
+                    {
+                    <body>Reader</body>
+                    }
+                @if (UserManager.IsInRoleAsync(user, "Helpdesk").Result)
+                {
+                    <body>Helpdesk</body>
+                }
+                @if (UserManager.IsInRoleAsync(user, "Administrator").Result)
+                    {
+                    <body>Administrator</body>
+                    }
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-action="Update" asp-route-id="@user.Id">
+                    Update
+                </a>
+            </td>
+        </tr>
+    }
+</table>
+<br />
+<hr />
+<a href="/Account/AddUser" class="btn btn-secondary">Create a User</a>
+
+@code {
+
+    private UserManager<ApplicationUser> userManager;
+    private RoleManager<IdentityRole> roleManager;
+    private List<ApplicationUser> userInformation = [];
+    string searchTerm = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        userManager = UserManager;
+        roleManager = RoleManager;
+        userInformation = userManager.Users.ToList();
+
+    }
+
+    private bool FilterCycleCheck(ApplicationUser item)
+    {
+        if ((item.UserName.Contains(searchTerm)) || item.Email.ToString().Contains(searchTerm))
+        {
+            return true;
+        }
+        return false;
+    }
+
+}

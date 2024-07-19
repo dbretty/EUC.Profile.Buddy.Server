@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="Administrator">
+    <Authorized>
+        <MudDivider Class="my-2" />
+        <MudNavGroup Title="Administration" Icon="@Icons.Material.Filled.AdminPanelSettings" Expanded="true" IconColor="Color.Info">
+            <MudNavLink Icon="@Icons.Material.Filled.List" IconColor="Color.Info" Href="/Account/UserList">
+                List Users
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.AddCircleOutline" IconColor="Color.Info" Href="/Account/AddUser">
+                Add User
+            </MudNavLink>
+        </MudNavGroup>
+    </Authorized>
+</AuthorizeView>

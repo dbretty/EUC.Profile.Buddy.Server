@@ -43,6 +43,7 @@ builder.Services.AddDbContext<ProfileDataRepository>(options =>
 });
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ProfileDataRepository>()
     .AddSignInManager()
     .AddDefaultTokenProviders();

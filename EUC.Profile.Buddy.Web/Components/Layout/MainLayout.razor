@@ -10,103 +10,83 @@
 <MudPopoverProvider  @rendermode="InteractiveServer" />
 
 <MudLayout>
-    <MudAppBar Elevation="25" Color="Color.Info">
-
-        <MudTooltip Text="Toggle Menu">
-            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Default" Size="Size.Large" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-        </MudTooltip>
-
-        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Default" Size="Size.Large" />
-
-        <MudBreakpointProvider>
-
-            <MudHidden Breakpoint="Breakpoint.Xl" Invert="true">
-                <MudText Typo="Typo.h5" Align="Align.Center">EUC Profile Buddy Command Center</MudText>
-            </MudHidden>
-
-            <MudHidden Breakpoint="Breakpoint.Lg" Invert="true">
-                <MudText Typo="Typo.h5" Align="Align.Center">EUC Profile Buddy Command Center</MudText>
-            </MudHidden>
-
-            <MudHidden Breakpoint="Breakpoint.Md" Invert="true">
-                <MudText Typo="Typo.h5" Align="Align.Center">EUC Command Center</MudText>
-            </MudHidden>
-
-            <MudHidden Breakpoint="Breakpoint.Sm" Invert="true">
-                <MudText Typo="Typo.h5" Align="Align.Center">Profile Buddy</MudText>
-            </MudHidden>
-
-            <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
-                <MudText Typo="Typo.h5" Align="Align.Center">Profile Buddy</MudText>
-            </MudHidden>
-
-        </MudBreakpointProvider>
-
-        <MudSpacer />
-        
-    </MudAppBar>
 
     <MudDrawer @bind-Open="@open" Elevation="25" Color="Color.Dark">
 
         <MudNavMenu Class="mud-width-full" Bordered="true" Rounded="true">
 
-            <MudText Typo="Typo.h6" Class="px-4">Navigation</MudText>
+            <MudAppBar Elevation="25" Color="Color.Info">
 
-            <MudDivider Class="my-2" />
+                <MudTooltip Text="Toggle Menu">
+                    <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Default" Size="Size.Large" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+                </MudTooltip>
 
-            <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Info" >
-                Dashboard
-            </MudNavLink>
+                <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Default" Size="Size.Large" />
 
-            <MudNavGroup Title="User Profiles" Icon="@Icons.Material.Filled.AccountCircle" Expanded="true" IconColor="Color.Info">
-                <MudNavLink Icon="@Icons.Material.Filled.Assessment" IconColor="Color.Info" Href="/UserProfileSummary" >
-                    Summary
-                </MudNavLink>
-            </MudNavGroup>
+                <MudBreakpointProvider>
 
-            <MudDivider Class="my-2" />
+                    <MudHidden Breakpoint="Breakpoint.Xl" Invert="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">EUC Profile Buddy Command Center</MudText>
+                    </MudHidden>
 
-            <MudNavGroup Title="Audit" Icon="@Icons.Material.Filled.Info" Expanded="true" IconColor="Color.Info">
-                <MudNavLink Icon="@Icons.Material.Filled.Task" IconColor="Color.Info" Href="/TaskInformation">
-                    Task Information
-                </MudNavLink>
-            </MudNavGroup>
+                    <MudHidden Breakpoint="Breakpoint.Lg" Invert="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">EUC Profile Buddy Command Center</MudText>
+                    </MudHidden>
 
-            <MudDivider Class="my-2" />
+                    <MudHidden Breakpoint="Breakpoint.Md" Invert="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">EUC Command Center</MudText>
+                    </MudHidden>
 
-            <MudNavGroup Title="Api" Icon="@Icons.Material.Filled.Api" Expanded="false" IconColor="Color.Info">
-                <MudNavLink Icon="@Icons.Material.Filled.Api" IconColor="Color.Info" Href="/Swagger">
-                    Swagger
-                </MudNavLink>
-                <MudNavLink Icon="@Icons.Material.Filled.DocumentScanner" IconColor="Color.Info" Href="/Redoc">
-                    ReDoc
-                </MudNavLink>
-            </MudNavGroup>
+                    <MudHidden Breakpoint="Breakpoint.Sm" Invert="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">Profile Buddy</MudText>
+                    </MudHidden>
 
-            <MudDivider Class="my-2" />
+                    <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+                        <MudText Typo="Typo.h5" Align="Align.Center">Profile Buddy</MudText>
+                    </MudHidden>
 
-            <AuthorizeView>
-                <Authorized>
-                    <MudNavLink Href="Account/Manage">
-                        Manage Account
+                </MudBreakpointProvider>
+
+                <MudSpacer />
+
+            </MudAppBar>
+
+            <MudDrawer @bind-Open="@open" Elevation="25" Color="Color.Dark">
+
+                <MudNavMenu Class="mud-width-full" Bordered="true" Rounded="true">
+
+                    <MudText Typo="Typo.h6" Class="px-4">Navigation</MudText>
+
+                    <MudDivider Class="my-2" />
+
+                    <MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Info">
+                        Dashboard
                     </MudNavLink>
-                    <MudNavLink Href="Account/Logout">
-                        <form action="Account/Logout" method="post">
-                            <AntiforgeryToken />
-                            <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                            <button type="submit">
-                                Logout
-                            </button>
-                        </form>
-                    </MudNavLink>
-                </Authorized>
-                <NotAuthorized>
-                    <MudNavLink Href="Account/Login">
-                        Login
-                    </MudNavLink>
-                </NotAuthorized>
-            </AuthorizeView>
 
+                    <MudNavGroup Title="User Profiles" Icon="@Icons.Material.Filled.AccountCircle" Expanded="true" IconColor="Color.Info">
+                        <MudNavLink Icon="@Icons.Material.Filled.Assessment" IconColor="Color.Info" Href="/UserProfileSummary">
+                            Summary
+                        </MudNavLink>
+                    </MudNavGroup>
+
+                    <MudDivider Class="my-2" />
+
+                    <MudNavGroup Title="Audit" Icon="@Icons.Material.Filled.Info" Expanded="true" IconColor="Color.Info">
+                        <MudNavLink Icon="@Icons.Material.Filled.Task" IconColor="Color.Info" Href="/TaskInformation">
+                            Task Information
+                        </MudNavLink>
+                    </MudNavGroup>
+
+                    <Api />
+
+                    <Admin />
+
+                    <Account />
+
+                </MudNavMenu>
+
+            </MudDrawer>
+            
         </MudNavMenu>
 
     </MudDrawer>

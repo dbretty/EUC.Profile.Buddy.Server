@@ -1,0 +1,15 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="Administrator">
+    <Authorized>
+        <MudDivider Class="my-2" />
+        <MudNavGroup Title="Api" Icon="@Icons.Material.Filled.Api" Expanded="false" IconColor="Color.Info">
+            <MudNavLink Icon="@Icons.Material.Filled.Api" IconColor="Color.Info" Href="/Swagger">
+                Swagger
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.DocumentScanner" IconColor="Color.Info" Href="/Redoc">
+                ReDoc
+            </MudNavLink>
+        </MudNavGroup>
+    </Authorized>
+</AuthorizeView>
