@@ -8,11 +8,10 @@ using MudBlazor.Services;
 using NSwag;
 using Microsoft.Extensions.Hosting.WindowsServices;
 using EUC.Profile.Buddy.Web.Repositories.Entities;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using EUC.Profile.Buddy.Web.Models;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Mvc;
 
 //var builder = WebApplication.CreateBuilder(args);
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
@@ -24,6 +23,10 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddRazorPages(o =>
+    o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute())
+);
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
@@ -42,7 +45,9 @@ builder.Services.AddDbContext<ProfileDataRepository>(options =>
 	options.UseSqlite("Data Source=Profile.Data.Repository.db");
 });
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+        options.SignIn.RequireConfirmedAccount = false
+     )
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ProfileDataRepository>()
     .AddSignInManager()
@@ -55,6 +60,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMudServices();
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddAntiforgery();
 
 
 builder.Services.AddOpenApiDocument(options =>
@@ -81,7 +87,6 @@ builder.Host.UseWindowsService();
 
 var app = builder.Build();
 
-// This will auto create and apply migrations on runtime.
 using var scope = app.Services.CreateScope();
 var dbContext = scope.ServiceProvider.GetService<ProfileDataRepository>();
 var pendingMigrations = dbContext.Database.GetPendingMigrations();
@@ -109,6 +114,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -138,11 +144,10 @@ using (var localScope = app.Services.CreateScope())
 }
 
 app.MapRazorComponents<App>()
-	.AddInteractiveServerRenderMode()
+    .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(EUC.Profile.Buddy.Web.Client._Imports).Assembly);
 
-// Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 
 app.Run();

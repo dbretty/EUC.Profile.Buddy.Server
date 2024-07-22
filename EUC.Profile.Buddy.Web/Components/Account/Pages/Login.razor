@@ -14,7 +14,7 @@
 
 <section>
     <StatusMessage Message="@errorMessage" />
-    <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="login">
+    <EditForm Model="Input" method="post" OnValidSubmit="LoginUser" FormName="loginform">
         <DataAnnotationsValidator />
         <br />
         <h4>EUC Profile Buddy - Login</h4>
@@ -37,6 +37,8 @@
 </section>
 
 @code {
+
+
     private string? errorMessage;
 
     [CascadingParameter]

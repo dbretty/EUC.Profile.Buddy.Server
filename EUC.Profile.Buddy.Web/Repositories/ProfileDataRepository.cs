@@ -17,6 +17,7 @@ namespace EUC.Profile.Buddy.Web.Repositories
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileDataRepository"/> class.
         /// </summary>
+        /// <param name="options">The DBContext Options.</param>
         public ProfileDataRepository(DbContextOptions<ProfileDataRepository> options)
             : base(options)
         {

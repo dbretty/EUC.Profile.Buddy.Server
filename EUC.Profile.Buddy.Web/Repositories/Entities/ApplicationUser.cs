@@ -6,7 +6,7 @@ namespace EUC.Profile.Buddy.Web.Repositories.Entities
     using Microsoft.AspNetCore.Identity;
 
     /// <summary>
-	/// Class to build the AppUser.
+	/// Class to build the ApplicationUser.
 	/// </summary>
     public class ApplicationUser : IdentityUser
     {
