@@ -1,0 +1,13 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="ServiceComponent" Directory="INSTALLFOLDER" >
+      <Component Id='WindowsServicesComponent'>
+        <File Source="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\EUC.Profile.Buddy.Web.exe" />
+		  <ServiceInstall Name="EUC.Profile.Buddy.Web" DisplayName="EUC Profile Buddy Web Server" 
+						  Description="EUC Profile Buddy Web Server component to centrally manage your EUC Profile Buddy client deployment"
+						  Type="ownProcess" Start="auto" ErrorControl="normal"  />
+		  <ServiceControl Name="EUC.Profile.Buddy.Web" Start="install" Stop="both" Remove="uninstall" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

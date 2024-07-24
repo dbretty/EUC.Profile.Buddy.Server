@@ -1,0 +1,37 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs" xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui" >
+
+	<?define InfoURL="https://bretty.me.uk/" ?>
+	
+		<Package Name="EUC Profile Buddy Web" Manufacturer="bretty.me.uk" Version="1.0.1.0" UpgradeCode="927d10c1-9df5-441e-bd9d-aa124a38859c">
+
+
+			<Icon Id="icon.ico" SourceFile="..\EUC.Profile.Buddy.Web.Installer\Icon\EUCProfileBuddy.ico"/>
+			<Property Id="ARPPRODUCTICON" Value="icon.ico" />
+			<Property Id="ARPHELPLINK" Value="$(var.InfoURL)" />
+			<Property Id="ARPNOREPAIR" Value="yes" Secure="yes" />
+	  
+			<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" AllowSameVersionUpgrades="yes" />
+	  
+			<MediaTemplate EmbedCab="yes" />
+
+			<WixVariable Id="WixUILicenseRtf" Value="eucpbs.rtf" />
+			
+			<ui:WixUI
+				Id="WixUI_InstallDir"
+				InstallDirectory="INSTALLFOLDER"
+			/>
+			
+			<Feature Id="Main">
+				<Files Include="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\**">
+					<Exclude Files="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\EUC.Profile.Buddy.Web.exe" />
+					<Exclude Files="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\Profile.Data.Repository.db" />
+					<Exclude Files="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\Profile.Data.Repository.db-shm" />
+					<Exclude Files="..\EUC.Profile.Buddy.Web\bin\Release\net8.0\publish\Profile.Data.Repository.db-wal" />
+				</Files>
+				<ComponentGroupRef Id="ServiceComponent" />
+		
+			</Feature>
+	
+  </Package>
+	
+</Wix>
