@@ -1,0 +1,23 @@
+﻿@inherits LayoutComponentBase
+
+<MudText Typo="Typo.h6" Class="px-4">Navigation</MudText>
+
+<MudDivider Class="my-2" />
+
+<MudNavLink Href="/" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Info">
+    Dashboard
+</MudNavLink>
+
+<MudNavGroup Title="User Profiles" Icon="@Icons.Material.Filled.AccountCircle" Expanded="true" IconColor="Color.Info">
+    <MudNavLink Icon="@Icons.Material.Filled.Assessment" IconColor="Color.Info" Href="/UserProfileSummary">
+        Summary
+    </MudNavLink>
+</MudNavGroup>
+
+<MudDivider Class="my-2" />
+
+<MudNavGroup Title="Audit" Icon="@Icons.Material.Filled.Info" Expanded="true" IconColor="Color.Info">
+    <MudNavLink Icon="@Icons.Material.Filled.Task" IconColor="Color.Info" Href="/TaskInformation">
+        Task Information
+    </MudNavLink>
+</MudNavGroup>

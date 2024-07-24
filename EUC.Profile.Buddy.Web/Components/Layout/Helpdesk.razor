@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="Administrator, HelpDesk">
+    <Authorized>
+        <MudDivider Class="my-2" />
+        <MudNavGroup Title="Helpdesk" Icon="@Icons.Material.Filled.HelpCenter" Expanded="true" IconColor="Color.Info">
+            <MudNavLink Icon="@Icons.Material.Filled.Clear" IconColor="Color.Info" Href="/Actions/ClearTemp">
+                Clear Temp Files
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.LockReset" IconColor="Color.Info" Href="/Account/AddUser">
+                Reset Microsoft Edge
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.ResetTv" IconColor="Color.Info" Href="/Account/AddUser">
+                Reset Microsoft Teams
+            </MudNavLink>
+        </MudNavGroup>
+    </Authorized>
+</AuthorizeView>
