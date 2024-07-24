@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Identity;
 using EUC.Profile.Buddy.Web.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.ResponseCompression;
+using EUC.Profile.Buddy.Web.Hubs;
 
 //var builder = WebApplication.CreateBuilder(args);
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
@@ -27,6 +29,12 @@ builder.Services.AddRazorComponents()
 builder.Services.AddRazorPages(o =>
     o.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute())
 );
+
+builder.Services.AddSignalR();
+builder.Services.AddResponseCompression(options =>
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        new[] { "application/octet-stream" })
+    );
 
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
@@ -114,7 +122,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.MapBlazorHub();
+app.MapHub<EUCProfileBuddyHub>("/EUCProfileBuddyHub");
 
 app.UseAuthentication();
 app.UseAuthorization();

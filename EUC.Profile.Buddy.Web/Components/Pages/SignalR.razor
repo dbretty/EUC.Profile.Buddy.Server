@@ -1,0 +1,65 @@
+﻿@page "/SignalR"
+@attribute [StreamRendering]
+@rendermode InteractiveServer
+
+<PageTitle>SignalR</PageTitle>
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.SignalR.Client
+@using EUC.Profile.Buddy.Web.Common
+@using EUC.Profile.Buddy.Web.Repositories
+@using EUC.Profile.Buddy.Web.Repositories.Entities
+@using EUC.Profile.Buddy.Web.Repositories.Model
+@using Microsoft.EntityFrameworkCore
+@inject ProfileDataRepository profileDataRepository
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider GetAuthenticationStateAsync
+
+<section>
+<EditForm Model="Input" method="post" OnValidSubmit="Send" FormName="davestestform">
+    <DataAnnotationsValidator />
+    <div class="form-floating mb-3">
+        <InputText @bind-Value="Input.Message" class="form-control" autocomplete="message" aria-required="true" placeholder="name@eucprofilebuddy.com" />
+        <label for="message" class="form-label">Message</label>
+    </div>
+    <div>
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Clear Temp Files</button>
+    </div>
+</EditForm>
+</section>
+
+@code {
+    private HubConnection? hubConnection;
+    private string? message;
+    private string? userMessage;
+    private string? name;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private sealed class InputModel
+    {
+        [Required]
+        public string Message { get; set; }
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/EUCProfileBuddyHub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+        await hubConnection.StartAsync();
+
+        var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+        var user = authstate.User;
+        name = user.Identity.Name;
+    }
+
+    private async Task Send()
+    {
+
+            await hubConnection.SendAsync("SendMessage", Input.Message, name);
+    }
+}
